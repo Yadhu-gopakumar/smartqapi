@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Menu Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add New Menu Item</h2>
+    <div class="container">
+        <div class="form-box">
+            <form action="{{ url_for('add_menu') }}" method="POST" enctype="multipart/form-data">
+                <label for="name">Item Name:</label>
+                <input type="text" name="name" required>
+
+                <label for="price">Price (₹):</label>
+                <input type="number" name="price" step="0.01" required>
+
+
+                <label for="image">Upload Image:</label>
+                <input type="file" name="image" accept="image/*">
+
+                <label>
+                    <input type="checkbox" name="available" checked> Available
+                </label>
+
+                <button type="submit">➕ Add Item</button>
+            </form>
+            <a href="{{ url_for('admin_dashboard') }}" class="back-link">🔙 Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

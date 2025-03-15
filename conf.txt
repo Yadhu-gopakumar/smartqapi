@@ -1,0 +1,91 @@
+### User Routes:
+
+1. **User Signup**  
+   - **Endpoint:** `POST /signup`  
+   - **Parameters (JSON):**  
+     - `email` (string)  
+     - `password` (string)  
+
+2. **User Login**  
+   - **Endpoint:** `POST /login`  
+   - **Parameters (JSON):**  
+     - `email` (string)  
+     - `password` (string)  
+
+3. **Place an Order**  
+   - **Endpoint:** `POST /user/order`  
+   - **Parameters (JSON):**  
+     - `payment_id` (string)  
+     - `items` (string)  
+     - `total_amount` (float)  
+   - **Authentication:** JWT required  
+
+4. **Get User Orders**  
+   - **Endpoint:** `GET /user/orders`  
+   - **Parameters:** None  
+   - **Authentication:** JWT required  
+
+5. **Cancel an Order**  
+   - **Endpoint:** `DELETE /user/orders/<order_id>`  
+   - **Parameters (URL Parameter):**  
+     - `order_id` (integer)  
+   - **Authentication:** JWT required  
+
+---
+
+### Admin Routes:
+
+6. **Admin Login**  
+   - **Endpoint:** `GET /admin`  
+   - **Parameters (Form Data):**  
+     - `email` (string)  
+     - `password` (string)  
+
+7. **Admin Logout**  
+   - **Endpoint:** `GET /admin/logout`  
+   - **Parameters:** None  
+
+8. **Admin Dashboard**  
+   - **Endpoint:** `GET /admin/dashboard`  
+   - **Parameters:** None  
+   - **Authentication:** Admin session required  
+
+9. **Add Menu Item**  
+   - **Endpoint:** `POST /admin/add_menu`  
+   - **Parameters (Form Data):**  
+     - `name` (string)  
+     - `price` (float)  
+     - `available` (boolean)  
+     - `image` (file) (optional)  
+
+10. **Edit Menu Page**  
+   - **Endpoint:** `GET /menu/edit/<item_id>`  
+   - **Parameters (URL Parameter):**  
+     - `item_id` (integer)  
+
+11. **Update Menu Item**  
+   - **Endpoint:** `POST /menu/<item_id>/update`  
+   - **Parameters (Form Data):**  
+     - `name` (string)  
+     - `price` (float)  
+     - `available` (boolean)  
+     - `image` (file) (optional)  
+
+12. **Delete Menu Item**  
+   - **Endpoint:** `POST /admin/menu/<item_id>/delete`  
+   - **Parameters (URL Parameter):**  
+     - `item_id` (integer)  
+   - **Authentication:** Admin session required  
+
+13. **View All Orders (Admin)**  
+   - **Endpoint:** `GET /admin/orders`  
+   - **Parameters:** None  
+   - **Authentication:** Admin session required  
+
+14. **Update Order Status**  
+   - **Endpoint:** `POST /admin/orders/<order_id>/update`  
+   - **Parameters (URL Parameter):**  
+     - `order_id` (integer)  
+   - **Parameters (Form Data):**  
+     - `status` (string)  
+   - **Authentication:** Admin session required  

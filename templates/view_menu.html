@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>View Menu Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        .actions a {
+            margin: 0 5px;
+            padding: 5px;
+            text-decoration: none;
+            color: white;
+            border-radius: 3px;
+        }
+        .edit { background: #28a745; }
+        .delete { background: #dc3545; }
+        .edit:hover { background: #218838; }
+        .delete:hover { background: #c82333; }
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Menu Items</h2>
+    <table>
+        <tr>
+             <th>Image</th>
+            <th>Name</th>
+            <th>Price (₹)</th>
+            <th>Available</th>
+             <th>Rating</th>
+
+            <th>Actions</th>
+        </tr>
+        {% for item in menu_items %}
+        <tr>
+             <td>
+                {% if item.image_url %}
+                    <img src="{{ item.image_url }}" alt="Item Image">
+                {% else %}
+                    ❌ No Image
+                {% endif %}
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.rating }}</td>
+            <td>{{ "✅ Yes" if item.available else "❌ No" }}</td>
+
+            <td class="actions">
+                <a href="{{ url_for('update_menu', item_id=item.id) }}" class="edit">✏️ Edit</a>
+                <a href="{{ url_for('delete_menu_item', item_id=item.id) }}" class="delete" onclick="return confirm('Are you sure?')">🗑 Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('admin_dashboard') }}">🔙 Back to Dashboard</a>
+</body>
+</html>

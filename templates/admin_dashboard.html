@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: #0056b3;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .actions a {
+            margin: 0 5px;
+            padding: 5px;
+            text-decoration: none;
+            color: white;
+            border-radius: 3px;
+        }
+
+        .edit {
+            background: #28a745;
+        }
+
+        .delete {
+            background: #dc3545;
+        }
+
+        .edit:hover {
+            background: #218838;
+        }
+
+        .delete:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Admin Dashboard</h2>
+
+    <nav>
+        <ul>
+            <a href="{{ url_for('admin_add_menu') }}">➕ Add New Menu Item</a>
+
+            <li><a href="{{ url_for('orders') }}">📦 View Orders</a></li>
+            <li><a href="{{ url_for('admin_logout') }}">🚪 Logout</a></li>
+        </ul>
+    </nav>
+
+    <h3>Current Menu Items</h3>
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in menu_items | reverse %}
+        <tr>
+            <td>
+                {% if item.image_url %}
+                <img src="{{ item.image_url }}" alt="Item Image">
+                {% else %}
+                ❌ No Image
+                {% endif %}
+            </td>
+            <td>{{ item.name }}</td>
+            <td>₹{{ item.price }}</td>
+            <td>₹{{ item.rating }}</td>
+            <td>{{ "✅ Yes" if item.available else "❌ No" }}</td>
+            <td class="actions"><span>
+                    <a href="{{ url_for('edit_menu_page', item_id=item.id) }}" class="edit">✏️ Edit</a>
+
+
+                    <form action="{{ url_for('delete_menu_item', item_id=item.id) }}" method="POST"
+                        style="display:inline;">
+                        <button type="submit" class="delete" onclick="return confirm('Are you sure?')">🗑
+                            Delete</button>
+                    </form>
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>
