@@ -113,6 +113,19 @@ def login():
 
     return jsonify({"error": "Invalid credentials"}), 401
 
+#view all avaialable menu items on userside
+@app.route('/menu', methods=['GET'])
+def get_menu():
+    menu_items = MenuItem.query.filter_by(available=True).all()
+    return jsonify([
+        {
+            "id": item.id,
+            "name": item.name,
+            "price": item.price,
+            "rating": item.rating,
+            "image_url": item.image_url
+        } for item in menu_items
+    ])
 
 #creating new order from user
 @app.route('/user/order', methods=['POST'])
